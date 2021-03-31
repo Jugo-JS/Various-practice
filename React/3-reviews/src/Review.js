@@ -3,33 +3,60 @@ import people from './data';
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
 
 const Review = () => {
+  const [index, setIndex] = useState(0);
+  const { name, job, image, text } = people[index];
+
+  const checkNumber = (number) => {
+    if(number > people.length -1) {
+      return 0;
+    }
+    if(number < 0) {
+      return people.length -1;
+    }
+    return number;
+  }
+
+  const prevPerson = () => {
+    setIndex((index) => {
+      const newIndex = checkNumber(index - 1);
+      return newIndex;
+    })
+  }
+  
+  const nextPerson = () => {
+    setIndex((index) => {
+      const newIndex =  checkNumber(index + 1);
+      return newIndex;
+    })
+  }
+
+  const randomNumber = () => {
+    let random = Math.floor(Math.random() * people.length);
+    if(random === index) {
+      random += 1;
+    }
+    return setIndex(checkNumber(random));
+  }
+
   return (
-    <main>
-      <section className='container'>
-        <div className='title'>
-          <h2>our reviews</h2>
-          <div className='underline'></div>
-        </div>
           <article className='review'>
             <div className='img-container'>
-              <img src='' alt='image' />
-              <span class='quote-icon'>
+              <img src={image} alt={name} className='person-img' />
+              <span className='quote-icon'>
                 <FaQuoteRight />
               </span>
-            </div>
-            <h4 className='author'>susan</h4>
-            <p className='job'>web developer</p>
-            <p className='info'>
-              I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry
-            </p>
-            <div className='button-container'>
-              <button className='prev-btn'><FaChevronLeft /></button>
-              <button className='next-btn'><FaChevronRight /></button>
-            </div>
-            <button className='random-btn'>Suprise me</button>
-          </article>
-      </section>
-    </main>
+             </div>
+              <h4 className='author'>{name}</h4>
+              <p className='job'>{job}</p>
+              <p className='info'>
+                  {text}
+              </p>
+             <div className='button-container'>
+                <button className='prev-btn' onClick={prevPerson}><FaChevronLeft /></button>
+                <button className='next-btn' onClick={nextPerson}><FaChevronRight /></button>
+             </div>
+             <button className='random-btn' onClick={randomNumber}>Suprise me</button>
+           </article>
   );
 };
 
