@@ -1,7 +1,32 @@
 import React from 'react';
 
-const Categories = () => {
-  return <h2>categories component</h2>;
+const Categories = ({ categories, newList }) => {
+
+   const uniqueCategories = () =>{
+    return ['all', ...new Set(categories)]
+  }
+
+  const handleClick = (event) => {
+    newList(event.target.value);
+  }
+
+  return (
+    <div className='btn-container'>
+      {uniqueCategories().map((category, index) => {
+        return (
+          <button 
+            type='button' 
+            className='filter-btn' 
+            key={index}
+            value={category}
+            onClick={handleClick}
+          >
+            {category}
+          </button>
+        )
+      })} 
+    </div>
+  );
 };
 
 export default Categories;
