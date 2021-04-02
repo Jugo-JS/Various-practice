@@ -5,15 +5,16 @@ import items from './data';
 
 function App() {
   const [menuItems, setMenuItems] = useState(items);
-
-  const categories = menuItems.map((item) => {
-      return (item.category);
-  })
+  const [categories, setCategories] = useState(items.map((item) => item.category));
+  
 
   const newList = (category) => {
-    const newMenu = menuItems.filter((item) => item.category === category);
-    console.log(newMenu);
-    return newMenu;
+    if(category === 'all') {
+      setMenuItems(items)
+      return;
+    }
+     const newMenu = items.filter((item) => item.category === category);
+     setMenuItems(newMenu);
   }
   
 
@@ -25,11 +26,7 @@ function App() {
           <div className='underline'></div>
         </div>
         <Categories categories={categories} newList={newList} />
-        <div className='section-center'>
-          {menuItems.map((menuItem) => {
-            return <Menu key={menuItem.id} {...menuItem} />
-          })}
-        </div>
+        <Menu items={menuItems} /> 
       </section>
     </main>
   );

@@ -2,9 +2,11 @@ import React from 'react';
 
 const Categories = ({ categories, newList }) => {
 
-   const uniqueCategories = () =>{
-    return ['all', ...new Set(categories)]
-  }
+  const uniqueCategories = ['all', ...new Set(categories.map((category) => category))];
+
+  //  const uniqueCategories = () =>{
+  //   return ['all', ...new Set(categories)]
+  // }
 
   const handleClick = (event) => {
     newList(event.target.value);
@@ -12,7 +14,7 @@ const Categories = ({ categories, newList }) => {
 
   return (
     <div className='btn-container'>
-      {uniqueCategories().map((category, index) => {
+      {uniqueCategories.map((category, index) => {
         return (
           <button 
             type='button' 
