@@ -5,25 +5,33 @@ import Alert from './Alert';
 function App() {
   const [listItem, setListItem] = useState('');
   const [list, setList] = useState([]);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState({ show: false, type:'', msg:'' });
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    if(listItem !== false) {
+
+    if(!listItem) {
+      setShowAlert({ show: true, type:'danger', msg:'Please enter value' });
+    }
+    else if (listItem) {
       let newItem = {
         id: new Date().getTime().toString(),
         title: listItem
       };
       setList([...list, newItem])
-      setShowAlert(true);
+      setShowAlert({ show:true, type:'success', msg:'Item added' });
       setListItem('');
     }
   }
 
+  const removeAlert = () => {
+    setShowAlert({ show:false, type:'', msg:'' })
+  }
+
   return (
     <section className='section-center'>
-      {showAlert && <Alert />}
+      {showAlert.show && <Alert {...showAlert} list={list} removeAlert={removeAlert} />}
       <form className='grocery-form' onSubmit={handleSubmit}>
         <h3>grocery bud</h3>
         <div className='form-control'>
@@ -37,11 +45,12 @@ function App() {
           <button type='submit' className='submit-btn'>submit</button>
         </div>
       </form>
+      {list.length > 0 && (
       <div className='grocery-container'>
-        
           <List items={list} />
-        </div>
-        <button className='clear-btn'>clear items</button>
+          <button className='clear-btn'>clear items</button>
+      </div>
+      )}
     </section>
   )
 }
