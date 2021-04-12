@@ -4,18 +4,27 @@ import sublinks from './data';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+    const [showSidebar, setShowSidebar] = useState(false);
+    const [submenuLinks, setSubmenuLinks] = useState(sublinks);
     const [showSubmenu, setShowSubmenu] = useState(false);
 
+    const toggleSidebar = () => {
+        setShowSidebar(showSidebar => !showSidebar);
+    }
+
     const toggleSubmenu = () => {
-        setShowSubmenu(showSubmenu => !showSubmenu);
+        setShowSubmenu(showSubmenu => !showSubmenu)
     }
 
 
     return (
         <AppContext.Provider 
             value={{
-                showSubmenu,
-                toggleSubmenu
+                showSidebar,
+                toggleSidebar,
+                submenuLinks,
+                setSubmenuLinks,
+                showSubmenu
             }}
         >
             {children}

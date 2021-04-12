@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className='nav-center'>
         <div className='nav-header'>
           <img src={logo} className='nav-logo' />
-          <button className='btn toggle-btn' onClick={Context.toggleSubmenu}><FaBars /></button>
+          <button className='btn toggle-btn' onClick={Context.toggleSidebar}><FaBars /></button>
         </div>
         <ul className='nav-links'>
           <li>
