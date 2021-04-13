@@ -2,18 +2,33 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useGlobalContext } from './context';
 
 const Submenu = () => {
-  const Context = useGlobalContext();
-  
-  const specificSubmenu = Context.submenuLinks.filter((submenuLink) => submenuLink.page === 'products');
-  // console.log(specificSubmenu[0]);
+  const { showSubmenu, page:{ page, links }, location } = useGlobalContext();
+  const container = useRef(null);
+  const [columns, setColumns] = useState('col-2');
+
+  useEffect(() => {
+    setColumns('col-2');
+    const submenu = container.current;
+    const { center, bottom } = location;
+    submenu.style.left = `${center}px`;
+    submenu.style.top = `${bottom}px`;
+
+    if(links.length === 3) {
+      setColumns('col-3');
+    }
+
+    if(links.length > 3) {
+      setColumns('col-4');
+    }
+  }, [links, location]);
 
   return (
-    <aside className='submenu show'>
-      <h4>{specificSubmenu[0].page}</h4>
-      <div className='submenu-center col-3'>
-        {specificSubmenu[0].links.map((link) => {
+    <aside className={`${showSubmenu ? 'submenu show' : 'submenu'}`} ref={container}>
+      <h4>{page}</h4>
+      <div className={`submenu-center ${columns}`}>
+        {links.map((link, index) => {
           const { label, icon, url } = link;
-          return <a href={url}>{icon} {label}</a>
+          return <a key={index} href={url}>{icon} {label}</a>
         })}
       </div>
     </aside>

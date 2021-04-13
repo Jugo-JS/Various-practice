@@ -4,12 +4,12 @@ import sublinks from './data';
 import { useGlobalContext } from './context';
 
 const Sidebar = () => {
-  const Context = useGlobalContext();
+  const { showSidebar, toggleSidebar } = useGlobalContext();
 
   return (
-      <aside className={`${Context.showSidebar ? 'sidebar-wrapper show' : 'sidebar-wrapper'}`}>
+      <aside className={`${showSidebar ? 'sidebar-wrapper show' : 'sidebar-wrapper'}`}>
       <div className='sidebar'>
-        <button className='close-btn' onClick={Context.toggleSidebar}><FaTimes /></button>
+        <button className='close-btn' onClick={toggleSidebar}><FaTimes /></button>
         <div className='sidebar-links'>
           {sublinks.map((sublink, index) => {
             const { page, links } = sublink;

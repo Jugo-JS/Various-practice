@@ -5,15 +5,23 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
     const [showSidebar, setShowSidebar] = useState(false);
-    const [submenuLinks, setSubmenuLinks] = useState(sublinks);
     const [showSubmenu, setShowSubmenu] = useState(false);
+    const [page, setPage] = useState({ page: '', links: [] });
+    const [location, setLocation] = useState({});
 
     const toggleSidebar = () => {
         setShowSidebar(showSidebar => !showSidebar);
     }
 
-    const toggleSubmenu = () => {
-        setShowSubmenu(showSubmenu => !showSubmenu)
+    const openSubmenu = (text, coordinates) => {
+        const page = sublinks.find((sublink) => sublink.page === text);
+        setPage(page);
+        setLocation(coordinates);
+        setShowSubmenu(true);
+    }
+
+    const closeSubmenu = () => {
+        setShowSubmenu(false)
     }
 
 
@@ -22,9 +30,11 @@ const AppProvider = ({ children }) => {
             value={{
                 showSidebar,
                 toggleSidebar,
-                submenuLinks,
-                setSubmenuLinks,
-                showSubmenu
+                showSubmenu,
+                openSubmenu,
+                closeSubmenu,
+                location,
+                page
             }}
         >
             {children}
