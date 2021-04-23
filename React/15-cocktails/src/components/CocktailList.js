@@ -15,7 +15,8 @@ const CocktailList = () => {
       <h2 className='section-title'>cocktails</h2>
       <div className='cocktails-center'>
         {cocktails.map((cocktail) => {
-          return <Cocktail key={cocktail.idDrink} {...cocktail} />
+          // console.log(cocktail)
+          return <Cocktail key={cocktail.id} {...cocktail} />
         })}
         
       </div>
