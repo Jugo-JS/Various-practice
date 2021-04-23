@@ -4,8 +4,35 @@ import { useCallback } from 'react';
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const AppContext = React.createContext();
 
+
+
 const AppProvider = ({ children }) => {
-  return <AppContext.Provider value='hello'>{children}</AppContext.Provider>
+  const [loading, setLoading] = useState(true);
+  const [cocktails, setCocktails] = useState([])
+
+  const fetchCocktails = async() => {
+    const response = await fetch(url);
+    const data = await response.json();
+    const newData = data.drinks;
+    setCocktails(newData)
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchCocktails()
+  }, []);
+
+
+  return (
+    <AppContext.Provider 
+      value={{
+        loading,
+        cocktails
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  )
 }
 // make sure use
 export const useGlobalContext = () => {

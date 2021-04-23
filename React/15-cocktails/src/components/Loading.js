@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Loading = () => {
  return (
@@ -7,4 +7,4 @@ const Loading = () => {
  )
 }
 
-export default Loading
+export default Loading;
