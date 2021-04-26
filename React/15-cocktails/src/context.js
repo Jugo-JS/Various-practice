@@ -8,12 +8,13 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [cocktails, setCocktails] = useState([])
+  const [cocktails, setCocktails] = useState([]);
+  const [input, setInput] = useState('a')
 
   const fetchCocktails = async() => {
     setLoading(true);
     try {
-      const response = await fetch(url);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`);
       const data = await response.json();
       const { drinks } = data;
 
@@ -40,14 +41,14 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     fetchCocktails()
-  }, []);
-
+  }, [input]);
 
   return (
     <AppContext.Provider 
       value={{
         loading,
-        cocktails
+        cocktails,
+        setInput
       }}
     >
       {children}
