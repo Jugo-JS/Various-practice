@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;900&family=Six+Caps&display=swap");
+
+:root {
+  /* Colors */
+  --white: #ffffff;
+  --light-grey: #e8e9eb;
+  --gray: #a7a7a7;
+  --dark-grey: #606060;
+  --accent: #03afc2;
+  --dark-blue: #223843;
+
+  /* Fonts and font weight */
+  --ff-s: "Merriweather", serif;
+  --ff-ss: "Six Caps", sans-serif;
+
+  --fw-n: 400;
+  --fw-b: 900;
+
+  --letter-spacing: 0.3em;
+}
+
+body {
+  color: var(--gray);
+  font-family: var(--ff-s);
+  line-height: 1.6;
+  background: var(--white);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+h1 {
+  color: var(--accent);
+  line-height: 1;
+  font-size: 3.125rem;
+}
+
+h1 span {
+  color: var(--accent);
+  font-family: var(--ff-ss);
+  display: block;
+  font-size: 5.5rem;
+  letter-spacing: var(--letter-spacing);
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: var(--letter-spacing);
+  color: var(--dark-grey);
+  line-height: 1;
+  font-family: var(--ff-ss);
+}
+
+p {
+}
