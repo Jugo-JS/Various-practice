@@ -20,8 +20,11 @@ function App() {
         <Route path='/about'>
            <About />
         </Route>
-        <Route path='/:id'>
+        <Route path='/cocktail/:id'>
            <SingleCocktail />
+        </Route>
+        <Route path='/*'>
+           <Error />
         </Route>
       </Switch>
     </Router>

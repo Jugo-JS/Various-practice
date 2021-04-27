@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
   const [cocktails, setCocktails] = useState([]);
   const [input, setInput] = useState('a')
 
-  const fetchCocktails = async() => {
+  const fetchCocktails = useCallback(async() => {
     setLoading(true);
     try {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`);
@@ -37,11 +37,11 @@ const AppProvider = ({ children }) => {
       console.log(error);
     }
     setLoading(false);
-  }
+  }, [input]);
 
   useEffect(() => {
     fetchCocktails()
-  }, [input]);
+  }, [input, fetchCocktails]);
 
   return (
     <AppContext.Provider 
