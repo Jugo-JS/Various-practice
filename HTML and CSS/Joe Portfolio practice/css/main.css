@@ -51,6 +51,12 @@ h2 {
   font-family: var(--ff-ss);
 }
 
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 50em;
+}
+
 .welcome {
   background-image: url(../img/header-bg.png);
   background-size: cover;
@@ -130,4 +136,47 @@ h2 {
   min-width: 100%;
   min-height: 100%;
   display: block;
+}
+
+.about-me {
+  display: grid;
+  grid-template-columns:
+    [port-start] minmax(6em, 1fr) [name-start] minmax(6em, 1fr)
+    [img-end] 2fr [port-end];
+  margin-top: 3em;
+}
+
+.about-me::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.about-img {
+  max-height: 25em;
+  grid-column: port-start/img-end;
+  grid-row: 1 / 2;
+}
+
+@media (min-width: 40em) {
+  .about-img {
+    float: left;
+    margin-right: 1em;
+  }
+}
+
+.about-title {
+  grid-column: name-start / port-end;
+  grid-row: 1 / 2;
+  align-self: end;
+  margin-bottom: 0.5em;
+}
+
+.about-subtitle,
+.about-text {
+  grid-column: port-start / port-end;
+}
+
+.about-subtitle {
+  margin: 0.5em 0;
 }
