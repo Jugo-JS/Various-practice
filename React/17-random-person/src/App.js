@@ -10,9 +10,10 @@ import {
 
 const url = 'https://randomuser.me/api/';
 
-// const defaultImage = 'https://randomuser.me/api/portraits/men/75.jpg';
+const defaultImage = 'https://randomuser.me/api/portraits/men/75.jpg';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const [title, setTitle] = useState('name');
   const [info, setInfo] = useState('');
@@ -37,7 +38,9 @@ function App() {
       }
 
       setUser(newUser);
+      setTitle('name');
       setInfo(newUser.name);
+      setLoading(false);
      
     }
 
@@ -58,18 +61,20 @@ function App() {
       <div className='block bcg-black'></div>
       <div className='block'>
         <div className='container'>
-          <img src={image} className='user-img' alt='random user' />
+          <img src={image || defaultImage} className='user-img' alt='random user' />
           <p className='user-title'>My {title} is</p>
           <p className='user-value'>{info}</p>
           <div className='values-list'>
-            <button className='icon' data-label='name' onMouseEnter={() => showUser('name', name)}><FaUser /></button>
-            <button className='icon' data-label='email' onMouseEnter={() => showUser('email', email)}><FaEnvelopeOpen /></button>
-            <button className='icon' data-label='age' onMouseEnter={() => showUser('age', age)}><FaCalendarTimes /></button>
-            <button className='icon' data-label='street' onMouseEnter={() => showUser('street', street)}><FaMap /></button>
-            <button className='icon' data-label='phone' onMouseEnter={() => showUser('phone', phone)}><FaPhone /></button>
-            <button className='icon' data-label='password' onMouseEnter={() => showUser('password', password)}><FaLock /></button>
+            <button className='icon' data-label='name' onMouseEnter={(e) => showUser(e.target.dataset.label, name)}><FaUser /></button>
+            <button className='icon' data-label='email' onMouseEnter={(e) => showUser(e.target.dataset.label, email)}><FaEnvelopeOpen /></button>
+            <button className='icon' data-label='age' onMouseEnter={(e) => showUser(e.target.dataset.label, age)}><FaCalendarTimes /></button>
+            <button className='icon' data-label='street' onMouseEnter={(e) => showUser(e.target.dataset.label, street)}><FaMap /></button>
+            <button className='icon' data-label='phone' onMouseEnter={(e) => showUser(e.target.dataset.label, phone)}><FaPhone /></button>
+            <button className='icon' data-label='password' onMouseEnter={(e) => showUser(e.target.dataset.label, password)}><FaLock /></button>
           </div>
-          <button className='btn' type='button' onClick={getUser}>random user</button>
+          <button className='btn' type='button' onClick={getUser}>
+            {loading ? 'loading...' : 'random person'}
+          </button>
         </div>
       </div>
     </main>
