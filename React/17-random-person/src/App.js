@@ -10,41 +10,66 @@ import {
 
 const url = 'https://randomuser.me/api/';
 
-const defaultImage = 'https://randomuser.me/api/portraits/men/75.jpg';
+// const defaultImage = 'https://randomuser.me/api/portraits/men/75.jpg';
 
 function App() {
   const [user, setUser] = useState({});
+  const [title, setTitle] = useState('name');
+  const [info, setInfo] = useState('');
 
-  useEffect(() => {
+ 
     const getUser = async() => {
       const response = await fetch(url);
       const data = await response.json();
       const { results } = data;
       // console.log(results);
       
-      const { name, email, dob, location, phone, login } = results[0];
+      const { name, email, dob, location, phone, login, picture } = results[0];
+
+      const newUser = {
+        name: `${name.first} ${name.last}`,
+        email: email,
+        age: dob.age,
+        street: `${location.street.number} ${location.street.name}`,
+        phone: phone,
+        password: login.password,
+        image: picture.large
+      }
+
+      setUser(newUser);
+      setInfo(newUser.name);
      
     }
+
+  useEffect(() => {
     getUser();
   }, [])
+
+
+  const { name, email, age, street, phone, password, image } = user;
+
+  const showUser = (userTitle, userInfo) => {
+    setTitle(userTitle);
+    setInfo(userInfo);
+  }
 
   return (
     <main>
       <div className='block bcg-black'></div>
       <div className='block'>
         <div className='container'>
-          <img src={defaultImage} className='user-img' alt='random user' />
-          <p className='user-title'>My name is</p>
-          <p className='user-value'>Nilufer Bultman</p>
+          <img src={image} className='user-img' alt='random user' />
+          <p className='user-title'>My {title} is</p>
+          <p className='user-value'>{info}</p>
           <div className='values-list'>
-            <button className='icon' data-label='name'><FaUser /></button>
-            <button className='icon' data-label='email'><FaEnvelopeOpen /></button>
-            <button className='icon' data-label='age'><FaCalendarTimes /></button>
-            <button className='icon' data-label='street'><FaMap /></button>
-            <button className='icon' data-label='phone'><FaPhone /></button>
-            <button className='icon' data-label='password'><FaLock /></button>
+            <button className='icon' data-label='name' onMouseEnter={() => showUser('name', name)}><FaUser /></button>
+            <button className='icon' data-label='email' onMouseEnter={() => showUser('email', email)}><FaEnvelopeOpen /></button>
+            <button className='icon' data-label='age' onMouseEnter={() => showUser('age', age)}><FaCalendarTimes /></button>
+            <button className='icon' data-label='street' onMouseEnter={() => showUser('street', street)}><FaMap /></button>
+            <button className='icon' data-label='phone' onMouseEnter={() => showUser('phone', phone)}><FaPhone /></button>
+            <button className='icon' data-label='password' onMouseEnter={() => showUser('password', password)}><FaLock /></button>
           </div>
-          <button className='btn' type='button'>random user</button>
+          <button className='btn' type='button' onClick={getUser}>random user</button>
         </div>
       </div>
     </main>
