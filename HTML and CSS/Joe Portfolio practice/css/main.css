@@ -9,6 +9,8 @@
   --accent: #03afc2;
   --dark-blue: #223843;
 
+  --accent-background: 3, 175, 194;
+
   /* Fonts and font weight */
   --ff-s: "Merriweather", serif;
   --ff-ss: "Six Caps", sans-serif;
@@ -49,6 +51,10 @@ h2 {
   color: var(--dark-grey);
   line-height: 1;
   font-family: var(--ff-ss);
+}
+
+figure {
+  margin: 0;
 }
 
 .container {
@@ -143,7 +149,8 @@ h2 {
   grid-template-columns:
     [port-start] minmax(6em, 1fr) [name-start] minmax(6em, 1fr)
     [img-end] 2fr [port-end];
-  margin-top: 3em;
+  margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 .about-me::after {
@@ -179,4 +186,91 @@ h2 {
 
 .about-subtitle {
   margin: 0.5em 0;
+}
+
+.portfolio {
+  text-align: center;
+  background: var(--light-grey);
+  padding: 5em 0;
+}
+
+.portfolio-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 20rem;
+}
+
+.portfolio-item figcaption {
+  position: absolute;
+  top: 100%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 2em;
+  background-color: rgba(var(--accent-background), 0.75);
+  color: var(--white);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  transition: top ease-in-out 250ms;
+}
+
+.portfolio-item:hover figcaption,
+.portfolio-item:focus figcaption {
+  top: 0;
+}
+
+.portfolio-item img {
+  display: block;
+  width: 100%;
+}
+
+.portfolio-title {
+  color: var(--white);
+  font-size: 2.5rem;
+  margin-bottom: auto;
+}
+
+.featured .portfolio-title {
+  font-size: 5rem;
+}
+
+.portfolio-desc {
+  display: none;
+}
+
+.featured .portfolio-desc {
+  display: block;
+}
+
+.portfolio-link {
+  color: var(--white);
+  font-weight: var(--fw-b);
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-bottom: 3px solid white;
+  align-self: flex-start;
+}
+
+.portfolio-link::after {
+  content: url(../img/arrow.svg);
+  display: inline-block;
+  height: 0.9em;
+  width: 0.9em;
+  margin-left: 0.5em;
+}
+
+.portfolio-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.portfolio-item.featured {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
 }
