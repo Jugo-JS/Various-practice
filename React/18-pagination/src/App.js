@@ -5,14 +5,18 @@ import Follower from './Follower';
 function App() {
   const { loading, data } = useFetch();
   const [page, setPage] = useState(0);
-  const [users, setUsers] = useState(data[0]);
+  const [users, setUsers] = useState([]);
 
  
-  // useEffect(() => {
-  //   setUsers(data[0]);
-  // }, [])
+  useEffect(() => {
+    setUsers(data);
+  }, [loading])
 
-  console.log(data[0]);
+  const getPageNumber = (event) => {
+    console.log(event.target.textContent);
+    return setPage(event.target.textContent);
+  }
+
 
   return (
     <main>
@@ -22,23 +26,19 @@ function App() {
       </div>
       <section className='followers'>
         <div className='container'>
-          {data.map((user) => {
-            console.log(user)
-            return <Follower key={user.id} {...user} />
+          {users.map((user, index) => {
+            // console.log(user[index])
+            return <Follower key={index} {...user[index]} />
           })}
         </div>
         <div className='btn-container'>
           <button className='prev-btn'>prev</button>
-          {/* <button className='page-btn active-btn' onClick={(e) => getUsers(data, e.target.textContent)}>1</button> */}
-          {/* <button className='page-btn' onClick={(e) => getUsers(data, e.target.textContent)}>2</button> */}
-          <button className='page-btn'>3</button>
-          <button className='page-btn'>4</button>
-          <button className='page-btn'>5</button>
-          <button className='page-btn'>6</button>
-          <button className='page-btn'>7</button>
-          <button className='page-btn'>8</button>
-          <button className='page-btn'>9</button>
-          <button className='page-btn'>10</button>
+          {data.map((item, index) => {
+            // console.log(item, index);
+            if(page === index) {
+              return (<button key={index} className='page-btn active-btn' onClick={getPageNumber}>{index + 1}</button>)
+            } return (<button key={index} className='page-btn' onClick={getPageNumber}>{index + 1}</button>)
+          })}
           <button className='next-btn'>next</button>
         </div>
       </section>
