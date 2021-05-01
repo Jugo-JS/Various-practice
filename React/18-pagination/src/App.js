@@ -10,13 +10,17 @@ function App() {
  
   useEffect(() => {
     setUsers(data);
-  }, [loading])
+  }, [loading, data])
 
   const getPageNumber = (event) => {
-    console.log(event.target.textContent);
-    return setPage(event.target.textContent);
+    setPage(event.target.textContent - 1);
   }
 
+  if(page > 9) {
+    setPage(0);
+  } else if (page < 0) {
+    setPage(9)
+  }
 
   return (
     <main>
@@ -27,19 +31,19 @@ function App() {
       <section className='followers'>
         <div className='container'>
           {users.map((user, index) => {
-            // console.log(user[index])
-            return <Follower key={index} {...user[index]} />
+            // console.log(user[page])
+            return <Follower key={index} {...user[page]} />
           })}
         </div>
         <div className='btn-container'>
-          <button className='prev-btn'>prev</button>
+          <button className='prev-btn' onClick={() => setPage(page - 1)}>prev</button>
           {data.map((item, index) => {
             // console.log(item, index);
-            if(page === index) {
-              return (<button key={index} className='page-btn active-btn' onClick={getPageNumber}>{index + 1}</button>)
-            } return (<button key={index} className='page-btn' onClick={getPageNumber}>{index + 1}</button>)
+            
+              return (<button key={index} className={`${page === index ? 'page-btn active-btn' : 'page-btn'}`} onClick={getPageNumber}>{index + 1}</button>)
+            
           })}
-          <button className='next-btn'>next</button>
+          <button className='next-btn' onClick={() => setPage(page + 1)}>next</button>
         </div>
       </section>
     </main>

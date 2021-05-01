@@ -6,6 +6,7 @@ const paginate = (array) => {
         const start = index * usersPerPage;
         return array.slice(start, start + usersPerPage);
     })
+    // console.log(newArray);
     return newArray;
 }
 
