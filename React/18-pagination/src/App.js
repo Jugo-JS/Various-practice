@@ -35,16 +35,18 @@ function App() {
             return <Follower key={index} {...user[page]} />
           })}
         </div>
-        <div className='btn-container'>
-          <button className='prev-btn' onClick={() => setPage(page - 1)}>prev</button>
-          {data.map((item, index) => {
+        {!loading && (
+          <div className='btn-container'>
+            <button className='prev-btn' onClick={() => setPage(page - 1)}>prev</button>
+            {data.map((item, index) => {
             // console.log(item, index);
             
-              return (<button key={index} className={`${page === index ? 'page-btn active-btn' : 'page-btn'}`} onClick={getPageNumber}>{index + 1}</button>)
+                return (<button key={index} className={`${page === index ? 'page-btn active-btn' : 'page-btn'}`} onClick={getPageNumber}>{index + 1}</button>)
             
-          })}
-          <button className='next-btn' onClick={() => setPage(page + 1)}>next</button>
-        </div>
+            })}
+            <button className='next-btn' onClick={() => setPage(page + 1)}>next</button>
+          </div>
+        )}
       </section>
     </main>
   )
