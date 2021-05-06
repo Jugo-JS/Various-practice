@@ -431,12 +431,22 @@ footer {
   width: 25%;
 }
 
-.menu-button a {
+.menu-button {
   position: absolute;
   top: 3em;
   left: 3em;
-  /* background: transparent; */
-  /* border: 0; */
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.cancel-button {
+  position: absolute;
+  top: 3em;
+  left: 3em;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
 
 nav {
@@ -446,6 +456,9 @@ nav {
   left: 0;
   right: 15%;
   z-index: 10;
+
+  transform: translateX(-100%);
+  transition: transform ease-out 250ms;
 }
 
 nav ul {
@@ -480,4 +493,40 @@ nav a {
 nav li a:hover {
   background: var(--dark-blue);
   color: var(--white);
+}
+
+.nav-is-open {
+  transform: translateX(0);
+}
+
+.page {
+  transform: translateX(0);
+  transition: transform ease-out 250ms;
+}
+
+.container-all {
+  transform: translateX(80%);
+  transition: transform ease-out 250ms;
+}
+
+.cancel-button {
+  display: none;
+}
+
+.display-none {
+  display: none;
+}
+
+.display {
+  display: block;
+}
+
+.cancel-fix {
+  transform: translateX(150%);
+}
+
+@media (max-width: 500px) {
+  .cancel-fix {
+    transform: translateX(-60%);
+  }
 }
