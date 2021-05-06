@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { API_ENDPOINT, useGlobalContext } from './context';
 import useFetch from './useFetch';
 
 const SingleMovie = () => {

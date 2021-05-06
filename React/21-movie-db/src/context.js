@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import useFetch from './useFetch';
 // make sure to use https
 export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=b7038864`;
