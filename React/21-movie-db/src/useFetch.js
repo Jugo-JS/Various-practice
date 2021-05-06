@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 
-const url = `http://www.omdbapi.com/?s=Batman&apikey=b7038864`;
+const API_ENDPOINT = `http://www.omdbapi.com/?apikey=b7038864`;
 
-const useFetch = () => {
+const useFetch = (urlParams) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ show: false, msg:'' });
     const [data, setData] = useState(null);
 
-    const fetchMovies = async () => {
+    const fetchMovies = async (url) => {
         setLoading(true);
         try {
             const response = await fetch(url);
@@ -30,8 +31,8 @@ const useFetch = () => {
     
 
     useEffect(() => {
-        fetchMovies();
-    }, [])
+        fetchMovies(`${API_ENDPOINT}${urlParams}`);
+    }, [urlParams])
 
 
     return { data, error, loading }

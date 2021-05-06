@@ -17,7 +17,7 @@ const Movies = () => {
       {data.map((movie) => {
         const { Poster, Title, Type, Year, imdbID } = movie;
         return (
-            <a className='movie' href='#' key={imdbID}>
+            <Link to={`/movies/${imdbID}`} className='movie' key={imdbID}>
               <article>
                 <img src={Poster} alt={Title} />
                 <div className='movie-info'>
@@ -25,7 +25,7 @@ const Movies = () => {
                   <p>{Year}</p>
                 </div>
               </article>
-            </a>
+            </Link>
         )
       })}
     </section>
