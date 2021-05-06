@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const url = `http://www.omdbapi.com/?i=tt3896198&apikey=b7038864`;
+const url = `http://www.omdbapi.com/?s=Batman&apikey=b7038864`;
 
 const useFetch = () => {
     const [loading, setLoading] = useState(true);
@@ -14,8 +14,15 @@ const useFetch = () => {
             const data = await response.json();
             
         //    console.log(data);
+
+        if(data.Response === 'True') {
+            setData(data.Search || data);
+            setError({ show: false, msg:'' })
+        } else {
+            setError({ show: true, msg: data.Error })
+        }
             setLoading(false);
-            setData(data.Response || data);
+            
         } catch (error) {
             console.log(error);
         }
@@ -27,7 +34,7 @@ const useFetch = () => {
     }, [])
 
 
-    return { data }
+    return { data, error, loading }
 
 }
 

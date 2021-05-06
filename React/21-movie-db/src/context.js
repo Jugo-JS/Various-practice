@@ -5,9 +5,9 @@ export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const { data } = useFetch();
+  const { data, loading } = useFetch();
   // console.log(data);
-  return <AppContext.Provider value={{ data }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ data, loading }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {
