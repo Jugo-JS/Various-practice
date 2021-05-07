@@ -280,7 +280,7 @@ figure {
 
 .portfolio-item img {
   display: block;
-  width: 100%;
+  /* width: 100vw; */
 }
 
 .portfolio-title {
@@ -528,5 +528,103 @@ nav li a:hover {
 @media (max-width: 500px) {
   .cancel-fix {
     transform: translateX(-60%);
+  }
+}
+
+/* MODALS */
+
+.portfolio-modal {
+  position: fixed;
+  z-index: 10;
+  top: 2em;
+  bottom: 2em;
+  right: 2em;
+  left: 2em;
+  background: var(--white);
+  box-shadow: 0 0 0 5em rgba(0, 0, 0, 0.5);
+  height: 92vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.modal-close {
+  background: white;
+  position: fixed;
+  left: 1em;
+  top: 1em;
+  border: 0;
+  width: 2em;
+  height: 2em;
+  padding-top: 3px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.portfolio-header {
+  text-align: left;
+  padding: 5em 0;
+  margin-bottom: 2em;
+}
+
+.portfolio-header:nth-of-type(1) {
+  background-image: url(../img/portfolio-01.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.portfolio-title-box {
+  background: rgba(var(--accent-background), 0.75);
+  padding: 3em 0 3em 3em;
+  color: var(--white);
+  width: 70%;
+}
+
+.portfolio-title {
+  font-size: 3.5em;
+  display: inline-block;
+}
+
+.portfolio-title::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin: 0.5em 0;
+  background: var(--white);
+  width: 100%;
+}
+
+.portfolio-subtitle {
+  font-size: 1.5rem;
+}
+
+.portfolio-content {
+  text-align: left;
+  width: 85%;
+  margin: 0 auto;
+  padding-bottom: 2em;
+}
+
+.portfolio-full-width {
+  width: 100vw;
+  max-width: initial;
+  margin: 2em calc(50% - 50vw);
+  height: 20vh;
+  object-fit: cover;
+}
+
+@media (min-width: 40em) {
+  .portfolio-pull-left {
+    width: 65%;
+    float: left;
+    margin-right: 1em;
+  }
+}
+
+@media (min-width: 40em) {
+  .portfolio-pull-right {
+    width: 65%;
+    float: right;
+    margin-left: 1em;
   }
 }
