@@ -245,6 +245,7 @@ figure {
   text-align: center;
   background: var(--light-grey);
   padding: 5em 0;
+  position: relative;
 }
 
 .portfolio-items {
@@ -534,7 +535,7 @@ nav li a:hover {
 /* MODALS */
 
 .portfolio-modal {
-  position: fixed;
+  position: absolute;
   z-index: 10;
   top: 2em;
   bottom: 2em;
@@ -545,13 +546,14 @@ nav li a:hover {
   height: 92vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  display: none;
 }
 
 .modal-close {
   background: white;
   position: fixed;
   left: 1em;
-  top: 1em;
+  top: 118em;
   border: 0;
   width: 2em;
   height: 2em;
@@ -581,7 +583,7 @@ nav li a:hover {
 }
 
 .portfolio-title {
-  font-size: 3.5em;
+  font-size: 2.5em;
   display: inline-block;
 }
 
@@ -626,5 +628,22 @@ nav li a:hover {
     width: 65%;
     float: right;
     margin-left: 1em;
+  }
+}
+
+.is-open {
+  display: block;
+}
+
+.body-overflow {
+  overflow-y: hidden;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
