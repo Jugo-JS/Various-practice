@@ -22,12 +22,14 @@ const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
   const [stories, dispatch] = useReducer(reducer, initialState)
+  // console.log(stories)
 
 useEffect(() => {
+  dispatch({ type: 'SET-LOADING' })
   const fetchNews = async () => {
     const response = await fetch(`${API_ENDPOINT}query=${stories.query}&page=${stories.page_number}`);
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     dispatch({ type: 'SET-LOADING' })
     dispatch({ type: 'SET_STORIES', payload: data.hits})
   }

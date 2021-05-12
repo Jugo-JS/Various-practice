@@ -9,7 +9,7 @@ import {
 const reducer = (state, action) => {
     switch(action.type) {
       case 'SET-LOADING':
-        return {...state, isLoading: true}
+        return {...state, isLoading: !state.isLoading}
       case 'SET_STORIES':
         return {...state, news: action.payload }
       case 'HANDLE_PAGE':
