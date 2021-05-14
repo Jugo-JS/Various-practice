@@ -25,20 +25,20 @@ const AppProvider = ({ children }) => {
   // console.log(stories)
 
 useEffect(() => {
-  dispatch({ type: 'SET-LOADING' })
+  dispatch({ type: SET_LOADING })
   const fetchNews = async () => {
     const response = await fetch(`${API_ENDPOINT}query=${stories.query}&page=${stories.page_number}`);
     const data = await response.json();
     // console.log(data)
-    dispatch({ type: 'SET-LOADING' })
-    dispatch({ type: 'SET_STORIES', payload: data.hits})
+    dispatch({ type: SET_LOADING })
+    dispatch({ type: SET_STORIES, payload: data.hits})
   }
   fetchNews();
 }, [stories.page_number, stories.query])
 
 const removeStory = (id) => {
   const newNews = stories.news.filter((story) => story.objectID !== id)
-  dispatch({ type: 'REMOVE_STORY', payload: newNews})
+  dispatch({ type: REMOVE_STORY, payload: newNews})
 }
 
 const handlePage = (page) => {
@@ -48,11 +48,11 @@ const handlePage = (page) => {
   if (page > 49) {
     page = 0
   }
-  dispatch({ type: 'HANDLE_PAGE', payload: page})
+  dispatch({ type: HANDLE_PAGE, payload: page})
 }
 
 const handleSearch = (search) => {
-  dispatch({ type: 'HANDLE_SEARCH', payload: search})
+  dispatch({ type: HANDLE_SEARCH, payload: search})
 }
 
   return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage, removeStory }}>{children}</AppContext.Provider>
