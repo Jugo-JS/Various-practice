@@ -36,7 +36,18 @@ useEffect(() => {
   fetchNews();
 }, [stories.page_number, stories.query])
 
+const removeStory = (id) => {
+  const newNews = stories.news.filter((story) => story.objectID !== id)
+  dispatch({ type: 'REMOVE_STORY', payload: newNews})
+}
+
 const handlePage = (page) => {
+  if(page < 0) {
+    page = 49
+  }
+  if (page > 49) {
+    page = 0
+  }
   dispatch({ type: 'HANDLE_PAGE', payload: page})
 }
 
@@ -44,7 +55,7 @@ const handleSearch = (search) => {
   dispatch({ type: 'HANDLE_SEARCH', payload: search})
 }
 
-  return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage, removeStory }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {
