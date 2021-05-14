@@ -36,7 +36,15 @@ useEffect(() => {
   fetchNews();
 }, [stories.page_number, stories.query])
 
-  return <AppContext.Provider value={{ stories, dispatch }}>{children}</AppContext.Provider>
+const handlePage = (page) => {
+  dispatch({ type: 'HANDLE_PAGE', payload: page})
+}
+
+const handleSearch = (search) => {
+  dispatch({ type: 'HANDLE_SEARCH', payload: search})
+}
+
+  return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {

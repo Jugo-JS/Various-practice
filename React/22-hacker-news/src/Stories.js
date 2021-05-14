@@ -6,7 +6,7 @@ const Stories = () => {
   const { stories } = useGlobalContext();
   
   const { isLoading, news } = stories;
-  console.log(isLoading)
+  // console.log(isLoading)
 
   if(isLoading) {
     return <div className='loading'></div>

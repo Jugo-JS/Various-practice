@@ -14,6 +14,8 @@ const reducer = (state, action) => {
         return {...state, news: action.payload }
       case 'HANDLE_PAGE':
         return {...state, page_number: action.payload}
+      case 'HANDLE_SEARCH':
+        return {...state, query: action.payload}
       default:
         return {...state}
     }
