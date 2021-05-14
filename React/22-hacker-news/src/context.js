@@ -55,8 +55,9 @@ const handleSearch = (search) => {
   dispatch({ type: HANDLE_SEARCH, payload: search})
 }
 
-  return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage, removeStory }}>{children}</AppContext.Provider>
+return <AppContext.Provider value={{ stories, dispatch, handleSearch, handlePage, removeStory }}>{children}</AppContext.Provider>
 }
+
 // make sure use
 export const useGlobalContext = () => {
   return useContext(AppContext)
