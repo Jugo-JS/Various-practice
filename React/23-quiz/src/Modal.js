@@ -2,7 +2,9 @@ import React from 'react'
 import { useGlobalContext } from './context'
 
 const Modal = () => {
-  return <h2>modal component</h2>
+  return (
+    <div></div>
+  )
 }
 
 export default Modal
