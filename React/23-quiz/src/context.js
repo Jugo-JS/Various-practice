@@ -16,13 +16,19 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [waiting, setWaiting] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [amount, setAmount] = useState(10)
-  const [category, setCategory] = useState('sports')
-  const [difficulty, setDifficulty] = useState('easy')
+  const [quiz, setQuiz] = useState({
+    amount: 10,
+    category: 'sports',
+    difficulty: 'easy'
+  })
+  // const [amount, setAmount] = useState(10)
+  // const [category, setCategory] = useState('sports')
+  // const [difficulty, setDifficulty] = useState('easy')
   const [questions, setQuestions] = useState([])
   const [index, setIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [count, setCount] = useState(0)
+  const [error, setError] = useState(false)
   // console.log(question)
 
 
@@ -30,11 +36,21 @@ const AppProvider = ({ children }) => {
     setLoading(true)
     setWaiting(false)
     try {
-      const response = await fetch(`${API_ENDPOINT}amount=${amount}&category=${table[category]}&difficulty=${difficulty}&type=multiple`)
+      const response = await fetch(`${API_ENDPOINT}amount=${quiz.amount}&category=${table[quiz.category]}&difficulty=${quiz.difficulty}&type=multiple`)
       const data = await response.json()
-      setQuestions(data.results)
-      setLoading(false)
+      
+      if(data.results.length > 0) {
+        setQuestions(data.results)
+        setLoading(false)
+        setError(false)
+      } else {
+        setLoading(false)
+        setWaiting(true)
+        setError(true)
+      }
     } catch (error) {
+      setWaiting(true)
+      setError(true)
       console.log(error)
     }
   }
@@ -65,18 +81,21 @@ const AppProvider = ({ children }) => {
   }
 
   const handleChange = (e) => {
-    setCategory(e.target.value)
+    const name = e.target.name
+    const value = e.target.value
+    setQuiz ({...quiz, [name]: value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetchQuestions()
   }
 
   return (
     <AppContext.Provider 
       value={{
-        amount,
-        setAmount,
-        category, 
-        setCategory, 
-        difficulty,
-        setDifficulty, 
+        quiz,
+        setQuiz,
         questions,
         index,
         nextQuestion,
@@ -89,7 +108,9 @@ const AppProvider = ({ children }) => {
         count,
         setCount,
         fetchQuestions,
-        handleChange
+        handleChange,
+        handleSubmit,
+        error
       }}
     >{children}
     </AppContext.Provider>)

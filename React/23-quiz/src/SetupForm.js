@@ -2,7 +2,7 @@ import React from 'react'
 import { useGlobalContext } from './context'
 
 const SetupForm = () => {
-  const { amount, setAmount, category, difficulty, setDifficulty, handleChange, fetchQuestions } = useGlobalContext()
+  const { quiz, handleChange, handleSubmit, error } = useGlobalContext()
   // console.log(category)
   // console.log(difficulty)
 
@@ -20,8 +20,8 @@ const SetupForm = () => {
               className='form-input' 
               min='1' 
               max='50' 
-              value={amount} 
-              onChange={(e) => setAmount(e.target.value)}
+              value={quiz.amount} 
+              onChange={handleChange}
             />
           </div>
           <div className='form-control'>
@@ -30,7 +30,7 @@ const SetupForm = () => {
               name='category' 
               id='category' 
               className='form-input'
-              value = {category}
+              value = {quiz.category}
               onChange = {handleChange}
             >
               <option value='sports'>sports</option>
@@ -44,15 +44,20 @@ const SetupForm = () => {
               name='difficulty' 
               id='difficulty' 
               className='form-input'
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
+              value={quiz.difficulty}
+              onChange={handleChange}
             >
               <option value='easy'>easy</option>
               <option value='medium'>medium</option>
               <option value='hard'>hard</option>
             </select>
           </div>
-          <button type='submit' className='submit-btn' onClick={fetchQuestions}>start</button>
+          {error && (
+            <p className='error'>
+              can't generate questions, please try different options
+            </p>
+          )}
+          <button type='submit' className='submit-btn' onClick={handleSubmit}>start</button>
         </form>
       </section>
     </main>

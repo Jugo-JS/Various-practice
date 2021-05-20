@@ -51,7 +51,7 @@ function App() {
       </p>
 
           <article className='container'>
-            <h2>{question}</h2>
+            <h2 dangerouslySetInnerHTML={{ __html: question }} />
             <div className='btn-container'>
               
               {answers.map((answer, index) => {
