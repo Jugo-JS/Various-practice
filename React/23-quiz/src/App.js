@@ -6,27 +6,36 @@ import Loading from './Loading'
 import Modal from './Modal'
 
 function App() {
-  const { questions, index } = useGlobalContext()
+  const { questions, index, loading, waiting } = useGlobalContext()
   console.log(questions[index])
 
-  // const { question, correct_answer, incorrect_answers } = questions[index]
-  // console.log([...incorrect_answers])
+  if(waiting) {
+    return <SetupForm />
+  }
+
+   if(loading) {
+    return <Loading />
+  }
+
+  const { question, correct_answer, incorrect_answers } = questions[index]
   
-  // let answers = incorrect_answers
+  
+  let answers = incorrect_answers
 
-  // const tempIndex = Math.floor(Math.random() * 4)
+  const tempIndex = Math.floor(Math.random() * 4)
 
-  // if(tempIndex === 3) {
-  //   answers.push(correct_answer)
-  // } else {
-  //   answers.push(answers[tempIndex])
-  //   answers[tempIndex] = correct_answer
-  // }
+  if(tempIndex === 3) {
+    answers.push(correct_answer)
+  } else {
+    answers.push(answers[tempIndex])
+    answers[tempIndex] = correct_answer
+  }
+
+ 
 
   return (
     <>
-    {/* <SetupForm />
-    <Loading />
+    {/* 
     <Modal /> */}
     <section className='quiz'>
       <p className='correct-answers'>
@@ -34,12 +43,12 @@ function App() {
       </p>
 
           <article className='container'>
-            <h2>bla bla</h2>
+            <h2>{question}</h2>
             <div className='btn-container'>
-              <button className='answer-btn'>bla bla</button>
-              {/* {incorrect_answers.map((answer) => {
-                return <button className='answer-btn'>{answer}</button>
-              })} */}
+              
+              {answers.map((answer, index) => {
+                return <button key={index} className='answer-btn'>{answer}</button>
+              })}
               
             </div>
           </article>
