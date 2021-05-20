@@ -6,8 +6,8 @@ import Loading from './Loading'
 import Modal from './Modal'
 
 function App() {
-  const { questions, index, nextQuestion, loading, waiting } = useGlobalContext()
-  console.log(index, questions.length)
+  const { questions, index, nextQuestion, loading, waiting, count, setCount } = useGlobalContext()
+  // console.log(questions)
 
   if(waiting) {
     return <SetupForm />
@@ -32,12 +32,22 @@ function App() {
     answers[tempIndex] = correct_answer
   }
 
+  const checkAnswer = (answer) => {
+    if(answer === correct_answer) {
+      setCount((count) => count + 1)
+      nextQuestion()
+    } else {
+      console.log('wrong answer')
+      nextQuestion()
+    }
+  }
+
   return (
     <>
     <Modal />
     <section className='quiz'>
       <p className='correct-answers'>
-        Correct Answers : 0/0
+        Correct Answers : {count} / {index}
       </p>
 
           <article className='container'>
@@ -45,7 +55,7 @@ function App() {
             <div className='btn-container'>
               
               {answers.map((answer, index) => {
-                return <button key={index} className='answer-btn'>{answer}</button>
+                return <button key={index} className='answer-btn' onClick={(e) => checkAnswer(e.target.textContent)}>{answer}</button>
               })}
               
             </div>

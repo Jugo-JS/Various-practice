@@ -16,19 +16,21 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [waiting, setWaiting] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [amount, setAmount] = useState('10')
-  const [category, setCategory] = useState('21')
+  const [amount, setAmount] = useState(10)
+  const [category, setCategory] = useState('sports')
   const [difficulty, setDifficulty] = useState('easy')
   const [questions, setQuestions] = useState([])
   const [index, setIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [count, setCount] = useState(0)
   // console.log(question)
+
 
   const fetchQuestions = async() => {
     setLoading(true)
     setWaiting(false)
     try {
-      const response = await fetch(`${API_ENDPOINT}amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`)
+      const response = await fetch(`${API_ENDPOINT}amount=${amount}&category=${table[category]}&difficulty=${difficulty}&type=multiple`)
       const data = await response.json()
       setQuestions(data.results)
       setLoading(false)
@@ -37,9 +39,9 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    fetchQuestions()
-  }, [])
+  // useEffect(() => {
+  //   fetchQuestions()
+  // }, [])
 
   const nextQuestion = () => {
     setIndex((oldIndex) => {
@@ -57,10 +59,21 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(true)
   }
 
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setWaiting(true)
+  }
+
+  const handleChange = (e) => {
+    setCategory(e.target.value)
+  }
+
   return (
     <AppContext.Provider 
       value={{
-        setAmount, 
+        amount,
+        setAmount,
+        category, 
         setCategory, 
         setDifficulty, 
         questions,
@@ -68,8 +81,14 @@ const AppProvider = ({ children }) => {
         nextQuestion,
         loading, 
         waiting,
+        setWaiting,
         openModal,
-        isModalOpen
+        isModalOpen,
+        closeModal,
+        count,
+        setCount,
+        fetchQuestions,
+        handleChange
       }}
     >{children}
     </AppContext.Provider>)
