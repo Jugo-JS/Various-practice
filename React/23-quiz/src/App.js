@@ -6,8 +6,8 @@ import Loading from './Loading'
 import Modal from './Modal'
 
 function App() {
-  const { questions, index, loading, waiting } = useGlobalContext()
-  console.log(questions[index])
+  const { questions, index, nextQuestion, loading, waiting } = useGlobalContext()
+  console.log(index, questions.length)
 
   if(waiting) {
     return <SetupForm />
@@ -16,6 +16,7 @@ function App() {
    if(loading) {
     return <Loading />
   }
+
 
   const { question, correct_answer, incorrect_answers } = questions[index]
   
@@ -31,12 +32,9 @@ function App() {
     answers[tempIndex] = correct_answer
   }
 
- 
-
   return (
     <>
-    {/* 
-    <Modal /> */}
+    <Modal />
     <section className='quiz'>
       <p className='correct-answers'>
         Correct Answers : 0/0
@@ -53,9 +51,8 @@ function App() {
             </div>
           </article>
       
-      <button className='next-question'>next-qusetion</button>
+      <button className='next-question' onClick={nextQuestion}>next-qusetion</button>
     </section>
-
     </>
   )
 }

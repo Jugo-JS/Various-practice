@@ -21,6 +21,7 @@ const AppProvider = ({ children }) => {
   const [difficulty, setDifficulty] = useState('easy')
   const [questions, setQuestions] = useState([])
   const [index, setIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   // console.log(question)
 
   const fetchQuestions = async() => {
@@ -40,6 +41,22 @@ const AppProvider = ({ children }) => {
     fetchQuestions()
   }, [])
 
+  const nextQuestion = () => {
+    setIndex((oldIndex) => {
+      const index = oldIndex + 1
+      if(index > questions.length - 1) {
+        openModal()
+        return 0
+      } else {
+        return index
+      }
+    })
+  }
+
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
   return (
     <AppContext.Provider 
       value={{
@@ -48,8 +65,11 @@ const AppProvider = ({ children }) => {
         setDifficulty, 
         questions,
         index,
+        nextQuestion,
         loading, 
-        waiting
+        waiting,
+        openModal,
+        isModalOpen
       }}
     >{children}
     </AppContext.Provider>)
