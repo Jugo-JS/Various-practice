@@ -2,8 +2,9 @@ import React from 'react'
 import { useGlobalContext } from './context'
 
 const SetupForm = () => {
-  const { amount, setAmount, category, handleChange, fetchQuestions } = useGlobalContext()
-  console.log(category)
+  const { amount, setAmount, category, difficulty, setDifficulty, handleChange, fetchQuestions } = useGlobalContext()
+  // console.log(category)
+  // console.log(difficulty)
 
   return (
     <main>
@@ -39,7 +40,13 @@ const SetupForm = () => {
           </div>
           <div className='form-control'>
             <label htmlFor='difficulty'>difficulty</label>
-            <select name='difficulty' id='difficulty' className='form-input'>
+            <select 
+              name='difficulty' 
+              id='difficulty' 
+              className='form-input'
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
               <option value='easy'>easy</option>
               <option value='medium'>medium</option>
               <option value='hard'>hard</option>

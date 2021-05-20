@@ -75,6 +75,7 @@ const AppProvider = ({ children }) => {
         setAmount,
         category, 
         setCategory, 
+        difficulty,
         setDifficulty, 
         questions,
         index,
