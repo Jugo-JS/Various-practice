@@ -21,9 +21,6 @@ const AppProvider = ({ children }) => {
     category: 'sports',
     difficulty: 'easy'
   })
-  // const [amount, setAmount] = useState(10)
-  // const [category, setCategory] = useState('sports')
-  // const [difficulty, setDifficulty] = useState('easy')
   const [questions, setQuestions] = useState([])
   const [index, setIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
