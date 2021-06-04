@@ -23,6 +23,14 @@ app.post('/api/people', (req, res) => {
     res.status(201).json({ success: true, person: name})
 })
 
+app.post('/api/postman/people', (req, res) => {
+    const { name } = req.body
+    if(!name) {
+        return res.status(200).json({ success: false, msg: 'Please provide name value'})
+    }
+    res.status(201).json({ success: true, data: [...people, {name}] })
+})
+
 app.post('/login', (req, res) => {
     const { name } = req.body
     if(name) {
